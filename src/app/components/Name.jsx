@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const float = keyframes`
@@ -6,7 +6,7 @@ const float = keyframes`
     transform: translatey(0px);
   }
   50% {
-    transform: translatey(2px);
+    transform: translatey(-20px);
   }
   100% {
     transform: translatey(0px);
@@ -26,7 +26,7 @@ const Container = styled.div`
   top: 64%;
   left: 62%;
   transform: translate(-50%, -50%);
-  transition: transform 0.3s ease-out; /* Smooth transition for parallax effect */
+  transition: transform 0.3s ease-out;
 `;
 
 const FloatingText = styled.p`
@@ -43,44 +43,34 @@ const FloatingText = styled.p`
   border-radius: 11px;
   box-shadow: 20px 20px ${colors.blue};
   font-family: 'Baloo 2', cursive;
-  cursor: pointer; /* Make it look clickable */
+  cursor: pointer;
 `;
 
 const ArrowImage = styled.img`
-  margin-left: 35px; /* Adjust this to position the arrow correctly */
-  height: 50px; /* Adjust size as needed */
+  margin-left: 35px;
+  height: 50px;
 `;
 
-export default function Name() {
+export default function Name({ handleFilesUpload }) {
     const [fileName, setFileName] = useState("Go to farm");
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY; // Use window.scrollY instead of pageYOffset
-            const parallaxEffect = scrollPosition * 0.2; // Adjust the factor for desired effect
-
-            document.getElementById('parallax-container').style.transform = `translate(-50%, calc(-50% + ${parallaxEffect}px))`;
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     const handleFileUpload = (event) => {
         const files = event.target.files;
         if (files.length > 0) {
             setFileName("Folder selected");
 
-            // Trigger smooth scroll after folder selection
+            const csvFiles = Array.from(files).filter(file => file.name.endsWith('.csv'));
+
+            // Trigger the file handling in Home.js
+            handleFilesUpload(csvFiles);
+
+            // Smooth scroll after folder selection
             setTimeout(() => {
                 const element = document.getElementById("target-section");
                 if (element) {
                     element.scrollIntoView({ behavior: "smooth" });
                 }
-            }, 500); // Adjust delay if necessary
+            }, 500);
         }
     };
 
@@ -88,8 +78,8 @@ export default function Name() {
         <label className="cursor-pointer">
             <input
                 type="file"
-                webkitdirectory="true"  // Allows folder selection
-                directory="true"         // Allows folder selection
+                webkitdirectory="true"
+                directory="true"
                 onChange={handleFileUpload}
                 style={{ display: "none" }}
             />
