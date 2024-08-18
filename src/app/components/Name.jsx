@@ -13,12 +13,6 @@ const float = keyframes`
   }
 `;
 
-const colors = {
-  blue: '#83af9b',
-  brown: '#774f38',
-  beige: '#ece5ce',
-};
-
 const Container = styled.div`
   position: absolute;
   display: flex;
@@ -37,13 +31,13 @@ const FloatingText = styled.p`
   font-weight: bold;
   letter-spacing: 3px;
   font-size: 15px;
-  color: ${colors.brown};
-  background-color: ${colors.beige};
   padding: 50px;
   border-radius: 11px;
-  box-shadow: 20px 20px ${colors.blue};
   font-family: 'Baloo 2', cursive;
   cursor: pointer;
+  color: ${(props) => props.textColor};
+  background-color: ${(props) => props.bgColor};
+  box-shadow: 20px 20px ${(props) => props.shadowColor};
 `;
 
 const ArrowImage = styled.img`
@@ -51,7 +45,7 @@ const ArrowImage = styled.img`
   height: 50px;
 `;
 
-export default function Name({ handleFilesUpload }) {
+export default function Name({ handleFilesUpload, colorMode }) {
     const [fileName, setFileName] = useState("Go to farm");
 
     const handleFileUpload = (event) => {
@@ -74,6 +68,32 @@ export default function Name({ handleFilesUpload }) {
         }
     };
 
+    // Define color variables based on the colorMode
+    const colors = {
+        normal: {
+            textColor: '#774f38',
+            bgColor: '#ece5ce',
+            shadowColor: '#83af9b',
+        },
+        deuteranopia: {
+            textColor: '#5a5a5a',
+            bgColor: '#e0e0e0',
+            shadowColor: '#a2a2a2',
+        },
+        protanopia: {
+            textColor: '#595959',
+            bgColor: '#d9d9d9',
+            shadowColor: '#9e9e9e',
+        },
+        tritanopia: {
+            textColor: '#4f4f4f',
+            bgColor: '#d1d1d1',
+            shadowColor: '#8f8f8f',
+        },
+    };
+
+    const currentColors = colors[colorMode.toLowerCase()] || colors.normal;
+
     return (
         <label className="cursor-pointer">
             <input
@@ -84,7 +104,11 @@ export default function Name({ handleFilesUpload }) {
                 style={{ display: "none" }}
             />
             <Container id="parallax-container">
-                <FloatingText>
+                <FloatingText
+                    textColor={currentColors.textColor}
+                    bgColor={currentColors.bgColor}
+                    shadowColor={currentColors.shadowColor}
+                >
                     {fileName}
                 </FloatingText>
                 <ArrowImage src="arrow.png" alt="Arrow pointing to upload button" />

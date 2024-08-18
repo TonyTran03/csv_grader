@@ -8,12 +8,32 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+/* Color blindness type: Normal */
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+}
+
+body.normal {
+  background: linear-gradient(90deg, rgba(255,246,240,1) 0%, rgba(255,244,236,1) 50%, rgba(255,246,240,1) 100%);
+}
+
+/* Color blindness type: Deuteranopia */
+body.deuteranopia {
+  background: linear-gradient(90deg,rgb(255, 245, 246) 0%, rgb(255, 245, 246)50%,rgb(255, 245, 246) 100%);
+}
+
+/* Color blindness type: Protanopia */
+body.protanopia {
+  background: linear-gradient(90deg, rgb(254, 246, 240) 0%,rgb(254, 246, 240) 50%, rgb(254, 246, 240) 100%);
+}
+
+/* Color blindness type: Tritanopia */
+body.tritanopia {
+  background: linear-gradient(90deg,rgb(254, 245, 255) 0%, rgb(254, 245, 255) 50%, rgb(254, 245, 255) 100%);
 }
 
 body {
@@ -25,12 +45,10 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background: rgb(255,249,255);
-  background: linear-gradient(90deg, rgba(255,246,240,1) 0%, rgba(255,244,236,1) 50%, rgba(255,246,240,1) 100%);
   background-size: 200% 200%; /* Ensures the gradient covers the area during the transition */
   animation: gradientShift 12s ease infinite; /* Animation applied here */
 }
+
 @keyframes gradientShift {
   0% {
     background-position: 100% 0%;
@@ -42,10 +60,9 @@ body {
     background-position: 100% 0%;
   }
 }
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
-
-
