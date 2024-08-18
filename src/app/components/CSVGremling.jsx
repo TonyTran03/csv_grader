@@ -32,12 +32,29 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
     };
     const closeDrawer = () => setIsDrawerOpen(false);
 
-    // Truncate file name to 12 characters
-    const truncatedName = csvInfo.name.length > 12 ? `${csvInfo.name.substring(0, 12)}...` : csvInfo.name;
-    console.log(`Rendering CSVGremling for file: ${csvInfo.name} at position (${csvInfo.x}, ${csvInfo.y})`);
+    // Determine the sprite based on the health category
+    let spriteSrc;
+    switch (csvInfo.health) {
+        case 'Excellent':
+        case 'Very Good':
+            spriteSrc = '/green.svg';
+            break;
+        case 'Good':
+        case 'Acceptable':
+            spriteSrc = '/pink.svg';
+            break;
+        case 'Less Than Ideal':
+        case 'Not Recommended':
+            spriteSrc = '/purple.svg';
+            break;
+        case 'Needs Attention':
+        default:
+            spriteSrc = '/red.svg';
+            break;
+    }
+
     return (
         <>
-        
             <div
                 style={{
                     position: 'absolute',
@@ -58,7 +75,7 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
                     }}
                     title={csvInfo.name}
                 >
-                    {truncatedName}
+                    {csvInfo.name}
                 </div>
 
                 <div ref={drag} className={`dropdown ${isDropdownOpen ? 'dropdown-open' : ''}`}>
@@ -69,7 +86,7 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
                         onClick={toggleDropdown}
                     >
                         <img
-                            src="/green.svg"
+                            src={spriteSrc}
                             alt={csvInfo.name}
                             style={{
                                 width: '70px',
@@ -89,27 +106,27 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
             </div>
 
             {/* Drawer */}
-{isDrawerOpen && (
-    <div
-        className="fixed top-0 right-0 h-full bg-gray-800 p-4 shadow-lg"
-        style={{ width: '40%', position: 'fixed', right: 0, zIndex: 1000 }} // Ensure it stays on the right side
-    >
-        <button 
-            onClick={closeDrawer} 
-            className="absolute top-2 right-2 text-white"
-            aria-label="Close drawer"
-            style={{
-                background: 'transparent',
-                border: 'none',
-                fontSize: '24px',
-                cursor: 'pointer',
-            }}
-        >
-            &times;
-        </button>
-        <CSVSummary csvInfo={csvInfo} />
-    </div>
-)}
+            {isDrawerOpen && (
+                <div
+                    className="fixed top-0 right-0 h-full bg-gray-800 p-4 shadow-lg"
+                    style={{ width: '40%', position: 'fixed', right: 0, zIndex: 1000 }} // Ensure it stays on the right side
+                >
+                    <button 
+                        onClick={closeDrawer} 
+                        className="absolute top-2 right-2 text-white"
+                        aria-label="Close drawer"
+                        style={{
+                            background: 'transparent',
+                            border: 'none',
+                            fontSize: '24px',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        &times;
+                    </button>
+                    <CSVSummary csvInfo={csvInfo} />
+                </div>
+            )}
 
         </>
     );
