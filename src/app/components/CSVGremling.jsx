@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
 import CSVSummary from './CSVSummary';
 
-export default function CSVGremling({ csvInfo, index, updatePosition }) {
+export default function CSVGremling({ csvInfo, index, updatePosition, colorMode }) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'CSV',
         item: { index },
@@ -32,24 +32,24 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
     };
     const closeDrawer = () => setIsDrawerOpen(false);
 
-    // Determine the sprite based on the health category
+    // Determine the sprite based on the health category and color mode
     let spriteSrc;
     switch (csvInfo.health) {
         case 'Excellent':
         case 'Very Good':
-            spriteSrc = '/green.svg';
+            spriteSrc = `/${colorMode}/green.svg`;
             break;
         case 'Good':
         case 'Acceptable':
-            spriteSrc = '/pink.svg';
+            spriteSrc = `/${colorMode}/pink.svg`;
             break;
         case 'Less Than Ideal':
         case 'Not Recommended':
-            spriteSrc = '/purple.svg';
+            spriteSrc = `/${colorMode}/purple.svg`;
             break;
         case 'Needs Attention':
         default:
-            spriteSrc = '/red.svg';
+            spriteSrc = `/${colorMode}/red.svg`;
             break;
     }
 
@@ -124,7 +124,7 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
                     >
                         &times;
                     </button>
-                    <CSVSummary csvInfo={csvInfo} />
+                    <CSVSummary csvInfo={csvInfo} colorMode={colorMode} />
                 </div>
             )}
 
