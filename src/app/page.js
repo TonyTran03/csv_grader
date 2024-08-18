@@ -18,28 +18,28 @@ export default function Home() {
 
     const svgMap = {
       normal: {
-          green: '/Normal/green.svg',
-          pink: '/Normal/pink.svg',
-          purple:'/Normal/purple.svg',
-          red: '/Normal/red.svg',
+          green: '/normal/green.svg',
+          pink: '/normal/pink.svg',
+          purple:'/normal/purple.svg',
+          red: '/normal/red.svg',
       },
       deuteranopia: {
-          green: '/Deuteranopia/green.svg',
-          pink: '/Deuteranopia/pink.svg',
-          purple: '/Deuteranopia/purple.svg',
-          red: '/Deuteranopia/red.svg',
+          green: '/deuteranopia/green.svg',
+          pink: '/deuteranopia/pink.svg',
+          purple: '/deuteranopia/purple.svg',
+          red: '/deuteranopia/red.svg',
       },
       protanopia: {
-          green: '/Protanopia/green.svg',
-          pink: '/Protanopia/pink.svg',
-          purple:'/Protanopia/purple.svg',
-          red:'/Protanopia/red.svg',
+          green: '/protanopia/green.svg',
+          pink: '/protanopia/pink.svg',
+          purple:'/protanopia/purple.svg',
+          red:'/protanopia/red.svg',
       },
       tritanopia: {
-          green: '/Tritanopia/green.svg',
-          pink: '/Tritanopia/pink.svg',
-          purple:'/Tritanopia/purple.svg',
-          red: '/Tritanopia/red.svg',
+          green: '/tritanopia/green.svg',
+          pink: '/tritanopia/pink.svg',
+          purple:'/tritanopia/purple.svg',
+          red: '/tritanopia/red.svg',
       },
   };
 
