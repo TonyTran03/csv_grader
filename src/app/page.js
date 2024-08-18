@@ -16,31 +16,30 @@ export default function Home() {
     const [csvFilesInfo, setCsvFilesInfo] = useState([]);
     const [colorMode, setColorMode] = useState('normal'); // Default color mode
 
-
     const svgMap = {
       normal: {
-          green: GreenNormalSVG,
-          pink: PinkNormalSVG,
-          purple: PurpleNormalSVG,
-          red: RedNormalSVG,
+          green: '/Normal/green.svg',
+          pink: '/Normal/pink.svg',
+          purple: '/Normal/purple.svg',
+          red: '/Normal/red.svg',
       },
       deuteranopia: {
-          green: GreenDeuteranopiaSVG,
-          pink: PinkDeuteranopiaSVG,
-          purple: PurpleDeuteranopiaSVG,
-          red: RedDeuteranopiaSVG,
+          green: '/Deuteranopia/green.svg',
+          pink: '/Deuteranopia/pink.svg',
+          purple: '/Deuteranopia/purple.svg',
+          red: '/Deuteranopia/red.svg',
       },
       protanopia: {
-          green: GreenProtanopiaSVG,
-          pink: PinkProtanopiaSVG,
-          purple: PurpleProtanopiaSVG,
-          red: RedProtanopiaSVG,
+          green: '/Protanopia/green.svg',
+          pink: '/Protanopia/pink.svg',
+          purple: '/Protanopia/purple.svg',
+          red: '/Protanopia/red.svg',
       },
       tritanopia: {
-          green: GreenTritanopiaSVG,
-          pink: PinkTritanopiaSVG,
-          purple: PurpleTritanopiaSVG,
-          red: RedTritanopiaSVG,
+          green: '/Tritanopia/green.svg',
+          pink: '/Tritanopia/pink.svg',
+          purple: '/Tritanopia/purple.svg',
+          red: '/Tritanopia/red.svg',
       },
   };
 
