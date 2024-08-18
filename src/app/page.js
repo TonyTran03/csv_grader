@@ -18,36 +18,70 @@ export default function Home() {
             )
         );
     };
-    const handleFilesUpload = (files) => {
-      const filesInfo = files.map((file, index) => {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-              const content = event.target.result;
-              const rows = content.split('\n');
-              const totalRows = rows.length;
-              const emptyRows = rows.filter(row => row.trim() === '').length;
-              const nonEmptyRows = totalRows - emptyRows;
+
+    const handleFilesUpload = async (files) => {
+      const filesInfo = await Promise.all(files.map((file, index) => {
+          return new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onload = async (event) => {
+                  const content = event.target.result;
+                  const rows = content.split('\n');
+                  const firstFiftyRows = rows.slice(0, 50).join('\n'); // Get the first 50 rows
   
-              const description = `File ${file.name} contains ${totalRows} rows, with ${nonEmptyRows} rows of data.`;
-              const dataQuality = emptyRows === 0 ? 'Good' : 'Poor';
-              const health = emptyRows === 0 ? 'Healthy' : 'Needs Attention';
+                  const totalRows = rows.length;
+                  const emptyRows = rows.filter(row => row.trim() === '').length;
+                  const nonEmptyRows = totalRows - emptyRows;
   
-              setCsvFilesInfo(prevInfo => [
-                  ...prevInfo,
-                  {
-                      name: file.name,
-                      content,
-                      description,
-                      emptyRows,
-                      dataQuality,
-                      health,
-                      x: 10 + (index * 100), // Initial position with some offset to avoid overlap
-                      y: 10 + (index * 50),
+                  const description = `File ${file.name} contains ${totalRows} rows, with ${nonEmptyRows} rows of data.`;
+                  const dataQuality = emptyRows === 0 ? 'Good' : 'Poor';
+                  const health = emptyRows === 0 ? 'Healthy' : 'Needs Attention';
+  
+                  // Fetch API call here, sending only the first 50 rows
+                  try {
+                      const response = await fetch('/api/generate', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({ content: firstFiftyRows }), // Send only the first 50 rows
+                      });
+  
+                      const data = await response.json();
+                      const insights = data.success ? data.data : 'Error generating insights';
+  
+                      console.log("Generated insights:", insights); // Log to check generated insights
+  
+                      resolve({
+                          name: file.name,
+                          content,
+                          description,
+                          emptyRows,
+                          dataQuality,
+                          health,
+                          insights,  // Include the generated insights here
+                          x: 10 + (index * 100),
+                          y: 10 + (index * 50),
+                      });
+                  } catch (error) {
+                      console.error("Error during fetch operation:", error);
+                      resolve({
+                          name: file.name,
+                          content,
+                          description,
+                          emptyRows,
+                          dataQuality,
+                          health,
+                          insights: 'Failed to generate insights',  // Default to an error message
+                          x: 10 + (index * 100),
+                          y: 10 + (index * 50),
+                      });
                   }
-              ]);
-          };
-          reader.readAsText(file);
-      });
+              };
+              reader.readAsText(file);
+          });
+      }));
+  
+      setCsvFilesInfo(filesInfo);
   };
   
 
@@ -70,7 +104,6 @@ export default function Home() {
                             flexDirection: 'column',
                         }}>
                         <Name handleFilesUpload={handleFilesUpload} />
-                        
                         <Typography
                             variant="h1"
                             sx={{

@@ -1,7 +1,9 @@
 import React from 'react';
 
 export default function CSVSummary({ csvInfo }) {
-    // Ensure csvInfo.content exists before processing it
+    // Extract insights content if available
+    const insightsContent = csvInfo.insights?.kwargs?.content || 'No insights available';
+
     const previewRows = csvInfo.content ? csvInfo.content.split('\n').slice(0, 5) : [];
     const previewData = previewRows.map(row => row.split(','));
 
@@ -35,12 +37,8 @@ export default function CSVSummary({ csvInfo }) {
             </div>
 
             <div className="mt-4">
-                <h3 className="text-lg font-semibold">Spot for improvements using AI</h3>
-                <textarea
-                    className="w-full h-24 p-2 mt-2 bg-gray-800 text-white rounded-md"
-                    placeholder="Enter AI suggestions here..."
-                    disabled
-                />
+                <h3 className="text-lg font-semibold">Insights</h3>
+                <p>{insightsContent}</p> {/* Display the extracted insights content */}
             </div>
 
             {/* CSV Preview */}

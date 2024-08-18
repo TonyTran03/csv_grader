@@ -34,9 +34,10 @@ export default function CSVGremling({ csvInfo, index, updatePosition }) {
 
     // Truncate file name to 12 characters
     const truncatedName = csvInfo.name.length > 12 ? `${csvInfo.name.substring(0, 12)}...` : csvInfo.name;
-
+    console.log(`Rendering CSVGremling for file: ${csvInfo.name} at position (${csvInfo.x}, ${csvInfo.y})`);
     return (
         <>
+        
             <div
                 style={{
                     position: 'absolute',
