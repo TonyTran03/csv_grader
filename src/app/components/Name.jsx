@@ -55,10 +55,8 @@ export default function Name({ handleFilesUpload, colorMode }) {
 
             const csvFiles = Array.from(files).filter(file => file.name.endsWith('.csv'));
 
-            // Trigger the file handling in Home.js
             handleFilesUpload(csvFiles);
 
-            // Smooth scroll after folder selection
             setTimeout(() => {
                 const element = document.getElementById("target-section");
                 if (element) {

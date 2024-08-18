@@ -8,9 +8,60 @@ import Name from './components/Name';
 import CSVGremling from './components/CSVGremling';
 import DropZone from './components/DropZone';
 
+import Image from 'next/image';
+
+import GreenNormalSVG from '/public/Normal/green.svg';
+import PinkNormalSVG from '/public/Normal/pink.svg';
+import PurpleNormalSVG from '/public/Normal/purple.svg';
+import RedNormalSVG from '/public/Normal/red.svg';
+
+import GreenDeuteranopiaSVG from '/public/Deuteranopia/green.svg';
+import PinkDeuteranopiaSVG from '/public/Deuteranopia/pink.svg';
+import PurpleDeuteranopiaSVG from '/public/Deuteranopia/purple.svg';
+import RedDeuteranopiaSVG from '/public/Deuteranopia/red.svg';
+
+import GreenProtanopiaSVG from '/public/Protanopia/green.svg';
+import PinkProtanopiaSVG from '/public/Protanopia/pink.svg';
+import PurpleProtanopiaSVG from '/public/Protanopia/purple.svg';
+import RedProtanopiaSVG from '/public/Protanopia/red.svg';
+
+import GreenTritanopiaSVG from '/public/Tritanopia/green.svg';
+import PinkTritanopiaSVG from '/public/Tritanopia/pink.svg';
+import PurpleTritanopiaSVG from '/public/Tritanopia/purple.svg';
+import RedTritanopiaSVG from '/public/Tritanopia/red.svg';
 export default function Home() {
+
     const [csvFilesInfo, setCsvFilesInfo] = useState([]);
     const [colorMode, setColorMode] = useState('normal'); // Default color mode
+
+
+    const svgMap = {
+      normal: {
+          green: GreenNormalSVG,
+          pink: PinkNormalSVG,
+          purple: PurpleNormalSVG,
+          red: RedNormalSVG,
+      },
+      deuteranopia: {
+          green: GreenDeuteranopiaSVG,
+          pink: PinkDeuteranopiaSVG,
+          purple: PurpleDeuteranopiaSVG,
+          red: RedDeuteranopiaSVG,
+      },
+      protanopia: {
+          green: GreenProtanopiaSVG,
+          pink: PinkProtanopiaSVG,
+          purple: PurpleProtanopiaSVG,
+          red: RedProtanopiaSVG,
+      },
+      tritanopia: {
+          green: GreenTritanopiaSVG,
+          pink: PinkTritanopiaSVG,
+          purple: PurpleTritanopiaSVG,
+          red: RedTritanopiaSVG,
+      },
+  };
+
 
     useEffect(() => {
         // Update the body class when colorMode changes
@@ -61,20 +112,20 @@ export default function Home() {
     
                         let healthCategory;
                         if (score === 'N/A') {
-                            healthCategory = 'Needs Attention';
-                        } else if (score < 50) {
-                            healthCategory = 'Not Recommended';
-                        } else if (score >= 50 && score < 60) {
-                            healthCategory = 'Less Than Ideal';
-                        } else if (score >= 60 && score < 70) {
-                            healthCategory = 'Acceptable';
-                        } else if (score >= 70 && score < 80) {
-                            healthCategory = 'Good';
-                        } else if (score >= 80 && score < 90) {
-                            healthCategory = 'Very Good';
-                        } else {
-                            healthCategory = 'Excellent';
-                        }
+                          healthCategory = 'Needs Attention';
+                      } else if (score < 50) {
+                          healthCategory = 'Not Recommended';
+                      } else if (score >= 50 && score < 60) {
+                          healthCategory = 'Less Than Ideal';
+                      } else if (score >= 60 && score < 70) {
+                          healthCategory = 'Acceptable';
+                      } else if (score >= 70 && score < 80) {
+                          healthCategory = 'Good';
+                      } else if (score >= 80 && score < 90) {
+                          healthCategory = 'Very Good';  // Corrected this line
+                      } else {
+                          healthCategory = 'Excellent';
+                      }
     
                         console.log("Generated insights:", insights); // Log to check generated insights
                         console.log("Extracted score:", score); // Log to check extracted score
@@ -117,6 +168,7 @@ export default function Home() {
     const handleModeChange = (event) => {
         setColorMode(event.target.value);
     };
+
     useEffect(() => {
       // Apply different background styles based on the color mode
       if (colorMode === 'Normal') {
@@ -133,19 +185,19 @@ export default function Home() {
       return () => {
           document.body.style.background = '';
       };
-  }, [colorMode]);
+    }, [colorMode]);
 
-
-      // Define button color variables based on the colorMode
-      const buttonColors = {
+    // Define color based on colorMode
+    const colors = {
         normal: '#1976d2',        // Default blue color
         deuteranopia: '#ff5722',  // Orange for Deuteranopia
         protanopia: '#9c27b0',    // Purple for Protanopia
         tritanopia: '#4caf50',    // Green for Tritanopia
     };
 
-    const currentButtonColor = buttonColors[colorMode.toLowerCase()] || buttonColors.normal;
-
+    const currentColor = colors[colorMode.toLowerCase()] || colors.normal;
+    const currentButtonColor = currentColor;
+    const currentSVGs = svgMap[colorMode.toLowerCase()];
     return (
         <DndProvider backend={HTML5Backend}>
             <div>
@@ -222,7 +274,39 @@ export default function Home() {
                             height: '100vh',
                             textAlign: 'center',
                             flexDirection: 'column',
+                            position: 'relative', // Make Box relative to position the SVGs inside it
                         }}>
+                        {/* SVGs Positioned in the Corners */}
+                        <Image
+                            src={currentSVGs.green}
+                            alt="Green SVG"
+                            width={100}
+                            height={100}
+                            style={{ position: 'absolute', top: '0', left: '0' }}
+                        />
+                        <Image
+                            src={currentSVGs.pink}
+                            alt="Pink SVG"
+                            width={120}
+                            height={120}
+                            style={{ position: 'absolute', top: '0', right: '0' }}
+                        />
+                        <Image
+                            src={currentSVGs.purple}
+                            alt="Purple SVG"
+                            width={80}
+                            height={80}
+                            style={{ position: 'absolute', bottom: '0', left: '0' }}
+                        />
+                        <Image
+                            src={currentSVGs.red}
+                            alt="Red SVG"
+                            width={90}
+                            height={90}
+                            style={{ position: 'absolute', bottom: '0', right: '0' }}
+                        />
+                        
+                        {/* Other content */}
                         <Button
                             variant="contained"
                             sx={{ 

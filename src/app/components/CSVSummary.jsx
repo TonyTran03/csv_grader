@@ -61,7 +61,7 @@ export default function CSVSummary({ csvInfo, colorMode }) {
                             lineHeight: 1.2,
                             textAlign: 'right',
                             mr: 7, 
-                            color: '#fff' // Ensure the color stays white
+                            color: '#fff'
                         }}
                     >
                         {score}%

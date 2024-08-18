@@ -27,12 +27,11 @@ export default function CSVGremling({ csvInfo, index, updatePosition, colorMode 
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
     const closeDropdown = () => setIsDropdownOpen(false);
     const openDrawer = () => {
-        closeDropdown();  // Close dropdown when opening the drawer
+        closeDropdown();  
         setIsDrawerOpen(true);
     };
     const closeDrawer = () => setIsDrawerOpen(false);
 
-    // Determine the sprite based on the health category and color mode
     let spriteSrc;
     switch (csvInfo.health) {
         case 'Excellent':
