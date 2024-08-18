@@ -23,7 +23,7 @@ const Container = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
-  top: 64%;
+  top: 65%;
   left: 62%;
   transform: translate(-50%, -50%);
   transition: transform 0.3s ease-out;
