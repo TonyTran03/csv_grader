@@ -18,16 +18,16 @@ export default function Home() {
 
     const svgMap = {
       normal: {
-          green: '/normal/green.svg',
-          pink: '/normal/pink.svg',
-          purple:'/normal/purple.svg',
-          red: '/normal/red.svg',
+          green: '/Normal/green.svg',
+          pink: '/Normal/pink.svg',
+          purple:'/Normal/purple.svg',
+          red: '/Normal/red.svg',
       },
       deuteranopia: {
-          green: '/deuteranopia/green.svg',
-          pink: '/deuteranopia/pink.svg',
-          purple: '/deuteranopia/purple.svg',
-          red: '/deuteranopia/red.svg',
+          green: '/Deuteranopia/green.svg',
+          pink: '/Deuteranopia/pink.svg',
+          purple: '/Deuteranopia/purple.svg',
+          red: '/Deuteranopia/red.svg',
       },
       protanopia: {
           green: '/protanopia/green.svg',
