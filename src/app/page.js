@@ -20,7 +20,7 @@ export default function Home() {
       normal: {
           green: '/Normal/green.svg',
           pink: '/Normal/pink.svg',
-          purple: '/Normal/purple.svg',
+          purple:'/Normal/purple.svg',
           red: '/Normal/red.svg',
       },
       deuteranopia: {
@@ -32,13 +32,13 @@ export default function Home() {
       protanopia: {
           green: '/Protanopia/green.svg',
           pink: '/Protanopia/pink.svg',
-          purple: '/Protanopia/purple.svg',
-          red: '/Protanopia/red.svg',
+          purple:'/Protanopia/purple.svg',
+          red:'/Protanopia/red.svg',
       },
       tritanopia: {
           green: '/Tritanopia/green.svg',
           pink: '/Tritanopia/pink.svg',
-          purple: '/Tritanopia/purple.svg',
+          purple:'/Tritanopia/purple.svg',
           red: '/Tritanopia/red.svg',
       },
   };
@@ -255,42 +255,42 @@ export default function Home() {
                             height: '100vh',
                             textAlign: 'center',
                             flexDirection: 'column',
-                            position: 'relative', // Make Box relative to position the SVGs inside it
-                        }}>
-                        {/* SVGs Positioned in the Corners */}
+                            position: 'relative',
+                        }}
+                    >
                         <Image
-                            src={currentSVGs.green}
-                            alt="Green SVG"
-                            width={100}
-                            height={100}
-                            style={{ position: 'absolute', top: '0', left: '0' }}
-                        />
-                        <Image
-                            src={currentSVGs.pink}
-                            alt="Pink SVG"
-                            width={120}
-                            height={120}
-                            style={{ position: 'absolute', top: '0', right: '0' }}
-                        />
-                        <Image
-                            src={currentSVGs.purple}
-                            alt="Purple SVG"
-                            width={80}
-                            height={80}
-                            style={{ position: 'absolute', bottom: '0', left: '0' }}
-                        />
-                        <Image
-                            src={currentSVGs.red}
-                            alt="Red SVG"
-                            width={90}
-                            height={90}
-                            style={{ position: 'absolute', bottom: '0', right: '0' }}
-                        />
-                        
+    src={currentSVGs.green}
+    alt="Green SVG"
+    width={120}
+    height={90} // Specify the correct height in pixels
+    style={{ position: 'absolute', top: '0', left: '0' }}
+/>
+<Image
+    src={currentSVGs.pink}
+    alt="Pink SVG"
+    width={120}
+    height={90} // Specify the correct height in pixels
+    style={{ position: 'absolute', top: '0', right: '0' }}
+/>
+<Image
+    src={currentSVGs.purple}
+    alt="Purple SVG"
+    width={120}
+    height={90} // Specify the correct height in pixels
+    style={{ position: 'absolute', bottom: '0', left: '0' }}
+/>
+<Image
+    src={currentSVGs.red}
+    alt="Red SVG"
+    width={120}
+    height={90} // Specify the correct height in pixels
+    style={{ position: 'absolute', bottom: '0', right: '0' }}
+/>
+
                         {/* Other content */}
                         <Button
                             variant="contained"
-                            sx={{ 
+                            sx={{
                                 marginBottom: '20px',
                                 backgroundColor: currentButtonColor,
                                 '&:hover': {
@@ -310,7 +310,7 @@ export default function Home() {
                                 fontSize: { xs: '4rem', sm: '4.5rem', md: '5rem' },
                                 lineHeight: 1.2,
                                 margin: '25px 0',
-                                color: 'black'
+                                color: 'black',
                             }}
                         >
                             CSV Health Checker
