@@ -205,7 +205,7 @@ export default function Home() {
                                 <input 
                                     type="radio" 
                                     name="colorMode" 
-                                    value="normal" 
+                                    value="Normal" 
                                     className="radio" 
                                     checked={colorMode === 'normal'}
                                     onChange={handleModeChange}
@@ -227,7 +227,7 @@ export default function Home() {
                                 <input 
                                     type="radio" 
                                     name="colorMode" 
-                                    value="Protanopia" 
+                                    value="protanopia" 
                                     className="radio" 
                                     checked={colorMode === 'Protanopia'}
                                     onChange={handleModeChange}
@@ -238,7 +238,7 @@ export default function Home() {
                                 <input 
                                     type="radio" 
                                     name="colorMode" 
-                                    value="Tritanopia" 
+                                    value="tritanopia" 
                                     className="radio" 
                                     checked={colorMode === 'Tritanopia'}
                                     onChange={handleModeChange}
