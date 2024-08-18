@@ -17,17 +17,35 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* or remove this line to allow default scrolling behavior */
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
+  background: rgb(255,249,255);
+  background: linear-gradient(90deg, rgba(255,246,240,1) 0%, rgba(255,244,236,1) 50%, rgba(255,246,240,1) 100%);
+  background-size: 200% 200%; /* Ensures the gradient covers the area during the transition */
+  animation: gradientShift 12s ease infinite; /* Animation applied here */
+}
+@keyframes gradientShift {
+  0% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
+
