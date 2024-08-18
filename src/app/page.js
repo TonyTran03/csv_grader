@@ -10,25 +10,7 @@ import DropZone from './components/DropZone';
 
 import Image from 'next/image';
 
-import GreenNormalSVG from '/public/Normal/green.svg';
-import PinkNormalSVG from '/public/Normal/pink.svg';
-import PurpleNormalSVG from '/public/Normal/purple.svg';
-import RedNormalSVG from '/public/Normal/red.svg';
 
-import GreenDeuteranopiaSVG from '/public/Deuteranopia/green.svg';
-import PinkDeuteranopiaSVG from '/public/Deuteranopia/pink.svg';
-import PurpleDeuteranopiaSVG from '/public/Deuteranopia/purple.svg';
-import RedDeuteranopiaSVG from '/public/Deuteranopia/red.svg';
-
-import GreenProtanopiaSVG from '/public/Protanopia/green.svg';
-import PinkProtanopiaSVG from '/public/Protanopia/pink.svg';
-import PurpleProtanopiaSVG from '/public/Protanopia/purple.svg';
-import RedProtanopiaSVG from '/public/Protanopia/red.svg';
-
-import GreenTritanopiaSVG from '/public/Tritanopia/green.svg';
-import PinkTritanopiaSVG from '/public/Tritanopia/pink.svg';
-import PurpleTritanopiaSVG from '/public/Tritanopia/purple.svg';
-import RedTritanopiaSVG from '/public/Tritanopia/red.svg';
 export default function Home() {
 
     const [csvFilesInfo, setCsvFilesInfo] = useState([]);
