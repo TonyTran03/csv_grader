@@ -8,7 +8,8 @@ const chatModel = new ChatOpenAI({
 export default async function handler(req, res) {
     const { content } = req.body;
 
-    const prompt = `Analyze the following CSV data and provide an assessment of its data quality and overall health:\n\n${content}`;
+    const prompt = `Analyze the following CSV data and provide an assessment of its data quality and overall health, including a percentage score out of 100% ending with "Overall health score: without the percentage sign":\n\n${content}`;
+
 
     try {
         const response = await chatModel.invoke(prompt);

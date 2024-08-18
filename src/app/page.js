@@ -26,7 +26,7 @@ export default function Home() {
               reader.onload = async (event) => {
                   const content = event.target.result;
                   const rows = content.split('\n');
-                  const firstFiftyRows = rows.slice(0, 50).join('\n'); // Get the first 50 rows
+                  const selectedRows = rows.slice(0, 50).join('\n'); // Get up to 50 rows, or fewer if not available
   
                   const totalRows = rows.length;
                   const emptyRows = rows.filter(row => row.trim() === '').length;
@@ -36,20 +36,42 @@ export default function Home() {
                   const dataQuality = emptyRows === 0 ? 'Good' : 'Poor';
                   const health = emptyRows === 0 ? 'Healthy' : 'Needs Attention';
   
-                  // Fetch API call here, sending only the first 50 rows
+                  // Fetch API call here, sending only the rows available (up to 50)
                   try {
                       const response = await fetch('/api/generate', {
                           method: 'POST',
                           headers: {
                               'Content-Type': 'application/json',
                           },
-                          body: JSON.stringify({ content: firstFiftyRows }), // Send only the first 50 rows
+                          body: JSON.stringify({ content: selectedRows }), // Send the selected rows (up to 50)
                       });
   
                       const data = await response.json();
-                      const insights = data.success ? data.data : 'Error generating insights';
+                      const insights = data.success ? data.data.kwargs.content : 'Error generating insights';
+  
+                      // Extract the score from the insights content
+                      const scoreMatch = insights.match(/Overall health score: (\d+)/);
+                      const score = scoreMatch ? parseInt(scoreMatch[1], 10) : 'N/A'; // Extract score or default to 'N/A'
+  
+                      let healthCategory;
+                      if (score === 'N/A') {
+                          healthCategory = 'Needs Attention';
+                      } else if (score < 50) {
+                          healthCategory = 'Not Recommended';
+                      } else if (score >= 50 && score < 60) {
+                          healthCategory = 'Less Than Ideal';
+                      } else if (score >= 60 && score < 70) {
+                          healthCategory = 'Acceptable';
+                      } else if (score >= 70 && score < 80) {
+                          healthCategory = 'Good';
+                      } else if (score >= 80 && score < 90) {
+                          healthCategory = 'Very Good';
+                      } else {
+                          healthCategory = 'Excellent';
+                      }
   
                       console.log("Generated insights:", insights); // Log to check generated insights
+                      console.log("Extracted score:", score); // Log to check extracted score
   
                       resolve({
                           name: file.name,
@@ -57,8 +79,9 @@ export default function Home() {
                           description,
                           emptyRows,
                           dataQuality,
-                          health,
+                          health: healthCategory,    // Include the calculated health here
                           insights,  // Include the generated insights here
+                          score,     // Include the extracted score in the file info
                           x: 10 + (index * 100),
                           y: 10 + (index * 50),
                       });
@@ -70,8 +93,9 @@ export default function Home() {
                           description,
                           emptyRows,
                           dataQuality,
-                          health,
+                          health: 'Needs Attention',  // Default to 'Needs Attention' if there's an error
                           insights: 'Failed to generate insights',  // Default to an error message
+                          score: 'N/A',  // Default to N/A if there's an error
                           x: 10 + (index * 100),
                           y: 10 + (index * 50),
                       });
@@ -83,6 +107,10 @@ export default function Home() {
   
       setCsvFilesInfo(filesInfo);
   };
+  
+  
+  
+  
   
 
     return (

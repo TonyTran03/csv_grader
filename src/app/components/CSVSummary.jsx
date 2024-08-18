@@ -1,8 +1,9 @@
 import React from 'react';
+import { Typography } from '@mui/material';
 
 export default function CSVSummary({ csvInfo }) {
-    // Extract insights content if available
-    const insightsContent = csvInfo.insights?.kwargs?.content || 'No insights available';
+    const insightsContent = csvInfo.insights || 'No insights available';
+    const score = csvInfo.score || 'N/A';
 
     const previewRows = csvInfo.content ? csvInfo.content.split('\n').slice(0, 5) : [];
     const previewData = previewRows.map(row => row.split(','));
@@ -11,7 +12,7 @@ export default function CSVSummary({ csvInfo }) {
         <div className="p-6 bg-gray-900 text-white rounded-lg shadow-lg" style={{ height: '100%' }}>
             <h2 className="text-2xl font-bold mb-4">CSV SUMMARY</h2>
 
-            <div className="flex">
+            <div className="flex justify-between items-center">
                 <div className="flex-shrink-0">
                     <img
                         src="/green.svg"
@@ -25,10 +26,24 @@ export default function CSVSummary({ csvInfo }) {
                     />
                 </div>
 
-                <div className="ml-7">
+                <div className="ml-7 flex-grow">
                     <p><strong>Type:</strong> CSV</p>
                     <p><strong>Health:</strong> {csvInfo.health}</p>
-                    <p>(Other metadata)</p>
+                </div>
+
+                <div>
+                    <Typography
+                        variant="h6"
+                        sx={{
+                            fontWeight: 'bold',
+                            fontSize: '6rem', 
+                            lineHeight: 1.2,
+                            textAlign: 'right',
+                            mr: 7, 
+                        }}
+                    >
+                        {score}%
+                    </Typography>
                 </div>
             </div>
 
@@ -38,10 +53,9 @@ export default function CSVSummary({ csvInfo }) {
 
             <div className="mt-4">
                 <h3 className="text-lg font-semibold">Insights</h3>
-                <p>{insightsContent}</p> {/* Display the extracted insights content */}
+                <p>{insightsContent}</p>
             </div>
 
-            {/* CSV Preview */}
             {csvInfo.content && (
                 <div className="mt-6">
                     <h3 className="text-lg font-semibold">CSV Preview</h3>
