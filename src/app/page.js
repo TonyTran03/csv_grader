@@ -14,7 +14,7 @@ import Image from 'next/image';
 export default function Home() {
 
     const [csvFilesInfo, setCsvFilesInfo] = useState([]);
-    const [colorMode, setColorMode] = useState('normal'); // Default color mode
+    const [colorMode, setColorMode] = useState('Normal'); // Default color mode
 
     const svgMap = {
       normal: {
